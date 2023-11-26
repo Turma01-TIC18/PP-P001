@@ -10,15 +10,14 @@ def main():
         print("3. Listar todos os produtos")
         print("4. Consultar preço")
         print("5. Sair")
-        print("Digite uma opção (1-5): ")
-
-        opcao = input("Escolha uma opção (1-5): ")
+        opcao = input("Digite uma opção (1-5): ")        
 
         if opcao == '1':
             codigo = input("Digite o código do produto (13 dígitos): ")
-            if(codigo < 13):
+            if len(codigo) != 13:
+                print("-------------------------------------------------------------")
                 print("O código deve ser de 13 dígitos!")
-                pass
+                continue
             nome = input("Digite o nome do produto: ")
             preco = float(input("Digite o preço do produto: "))
             supermercado.inserir_produto(codigo, nome, preco)
