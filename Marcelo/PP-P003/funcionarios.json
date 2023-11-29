@@ -1,0 +1,18 @@
+[
+  {
+    "nome": "Marcos",
+    "sobrenome": "Silva",
+    "ano_nascimento": 1990,
+    "RG": "002584567",
+    "ano_admissao": 2015,
+    "salario": 70525.50
+  },
+  {
+    "nome": "Carla",
+    "sobrenome": "Souza",
+    "ano_nascimento": 1980,
+    "RG": "123456543",
+    "ano_admissao": 2010,
+    "salario": 56630.6
+  }
+]
