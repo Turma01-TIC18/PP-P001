@@ -6,6 +6,7 @@
 
 <p>Na pasta <a href='https://github.com/Turma01-TIC18/PP-P001/tree/lucas-silva/PP-P001'>PP-P001</a> se encontra os arquivos da prática 1.</p>
 <p>Na pasta <a href='https://github.com/Turma01-TIC18/PP-P001/tree/lucas-silva/PP-P002'>PP-P002</a> se encontra os arquivos da prática 2</p>
+<p>Na pasta <a href='https://github.com/Turma01-TIC18/PP-P001/tree/lucas-silva/PP-P003'>PP-P002</a> se encontra os arquivos da prática 3</p>
 
 # Autores
 
