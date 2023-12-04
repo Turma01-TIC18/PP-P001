@@ -236,21 +236,50 @@ def main():
         lista.mostraMaior()
         lista.listarEmOrdem()
         print("___________________")
-    #(Iterador zip)
-    nomeSalario = zip(nomes.getLista(), salarios.getLista())
-    for nome, salario in nomeSalario:
-        print(f"Nome: {nome}, Salário: {salario}")
-    # Reajuste de salários em 10%
-    salarios.reajustarSalarios(10)
+
+    while True:
+        print("1. Incluir um nome na lista de nomes")
+        print("2. Incluir um salário na lista de salários")
+        print("3. Incluir uma data na lista de datas")
+        print("4. Incluir uma idade na lista de idades")
+        print("5. Percorrer as listas de nomes e salários")
+        print("6. Calcular o valor da folha com um reajuste de 10%")
+        print("7. Modificar o dia das datas anteriores a 2019")
+        print("8. Sair")
+
+        opcao = input("Escolha uma opção: ")
+
+        if opcao == "1":
+            pass
+        elif opcao == "2":
+            pass
+        elif opcao == "3":
+            pass
+        elif opcao == "4":
+            pass
+        elif opcao == "5":
+            nomeSalario = zip(nomes.getLista(), salarios.getLista())
+            for nome, salario in nomeSalario:
+                print(f"Nome: {nome}, Salário: {salario}")
+            print()
+        elif opcao == "6":
+             # Reajuste de salários em 10%
+            salarios.reajustarSalarios(10)
     
-    # Cálculo do custo da folha de pagamento após reajuste
-    print(f"Custo da folha de pagamento após reajuste: {salarios.calcularCustoFolha()}")
-
-    datas.modificarDatasAnteriores2019()
-    print("Datas apos metodo: modificarDatasAnteriores2019()")
-    datas.listarEmOrdem()
-
-    print("Fim do teste!!!")
+            # Cálculo do custo da folha de pagamento após reajuste
+            print(f"Custo da folha de pagamento após reajuste: {salarios.calcularCustoFolha()}")
+            
+            print()
+        elif opcao == "7":
+            datas.modificarDatasAnteriores2019()
+            print("Datas apos metodo: modificarDatasAnteriores2019()")
+            datas.listarEmOrdem()
+            
+            print()
+        elif opcao == "8":
+            break
+        else:
+            print("Opção inválida. Tente novamente.")
 
 
 if __name__ == "__main__":
