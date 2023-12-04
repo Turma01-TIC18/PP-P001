@@ -1,9 +1,13 @@
 from abc import ABC, abstractmethod
-
-class Data:
-    def __init__(self, dia=1, mes=1, ano=1900):
-        if not (1 <= dia <= 31) or not (1 <= mes <= 12) or not (1900 <= ano <= 2100):
-            raise ValueError("Data inválida")
+from statistics import median
+class Data: 
+    def __init__(self, dia = 1, mes = 1, ano = 2000):
+        if dia < 1 or dia > 31:
+            raise ValueError("Dia inválido")
+        if mes < 1 or mes > 12:
+            raise ValueError("Mês inválido")
+        if ano < 2000 or ano > 2100:
+            raise ValueError("Ano inválido")
         self.__dia = dia
         self.__mes = mes
         self.__ano = ano
@@ -106,6 +110,9 @@ class AnaliseDados(ABC):
     @abstractmethod
     def listarEmOrdem(self):
         pass
+    @abstractmethod
+    def getLista(self):
+        pass
 
 class ListaNomes(AnaliseDados):
     def __init__(self):
@@ -126,6 +133,9 @@ class ListaNomes(AnaliseDados):
     def listarEmOrdem(self):
         sorted_lista = sorted(self._AnaliseDados__lista)
         print("Lista em ordem:", sorted_lista)
+        
+    def getLista(self):
+        return self._AnaliseDados__lista
 
 class ListaDatas(AnaliseDados):
     def __init__(self):
@@ -134,11 +144,16 @@ class ListaDatas(AnaliseDados):
     def entradaDeDados(self):
         num_elementos = int(input("Quantas datas você deseja inserir? "))
         for _ in range(num_elementos):
-            dia = int(input("Dia: "))
-            mes = int(input("Mês: "))
-            ano = int(input("Ano: "))
-            data = Data(dia, mes, ano)
-            self._AnaliseDados__lista.append(data)
+             while True:
+                try:
+                    dia = int(input("Dia: "))
+                    mes = int(input("Mês: "))
+                    ano = int(input("Ano: "))
+                    data = Data(dia, mes, ano)
+                    self._AnaliseDados__lista.append(data)
+                    break  
+                except ValueError as e:
+                    print(f"Erro: {e}. Por favor, insira uma data válida.")
 
     def mostraMenor(self):
         print(f"Menor: {min(self._AnaliseDados__lista)}")
@@ -148,7 +163,13 @@ class ListaDatas(AnaliseDados):
 
     def listarEmOrdem(self):
         sorted_lista = sorted(self._AnaliseDados__lista)
-        print("Lista em ordem:", sorted_lista)
+        print("Lista em ordem: ")
+        for data in sorted_lista:
+            print(data)
+    def getLista(self):
+        return self._AnaliseDados__lista
+    def modificarDatasAnteriores2019(self):
+        self._AnaliseDados__lista = list(map(lambda data: Data(1, data.mes, data.ano) if data.ano < 2019 else data, self._AnaliseDados__lista))
 
 class ListaSalarios(AnaliseDados):
     def __init__(self):
@@ -169,6 +190,14 @@ class ListaSalarios(AnaliseDados):
     def listarEmOrdem(self):
         sorted_lista = sorted(self._AnaliseDados__lista)
         print("Lista em ordem:", sorted_lista)
+    def getLista(self):
+        return self._AnaliseDados__lista
+    
+    def reajustarSalarios(self, percentual):
+        self._AnaliseDados__lista = list(map(lambda salario: salario * (1 + percentual / 100), self._AnaliseDados__lista))
+
+    def calcularCustoFolha(self):
+        return sum(self._AnaliseDados__lista)
 
 class ListaIdades(AnaliseDados):
     def __init__(self):
@@ -189,6 +218,8 @@ class ListaIdades(AnaliseDados):
     def listarEmOrdem(self):
         sorted_lista = sorted(self._AnaliseDados__lista)
         print("Lista em ordem:", sorted_lista)
+    def getLista(self):
+        return self._AnaliseDados__lista
 
 def main():
     nomes = ListaNomes()
@@ -205,6 +236,19 @@ def main():
         lista.mostraMaior()
         lista.listarEmOrdem()
         print("___________________")
+    #(Iterador zip)
+    nomeSalario = zip(nomes.getLista(), salarios.getLista())
+    for nome, salario in nomeSalario:
+        print(f"Nome: {nome}, Salário: {salario}")
+    # Reajuste de salários em 10%
+    salarios.reajustarSalarios(10)
+    
+    # Cálculo do custo da folha de pagamento após reajuste
+    print(f"Custo da folha de pagamento após reajuste: {salarios.calcularCustoFolha()}")
+
+    datas.modificarDatasAnteriores2019()
+    print("Datas apos metodo: modificarDatasAnteriores2019()")
+    datas.listarEmOrdem()
 
     print("Fim do teste!!!")
 
