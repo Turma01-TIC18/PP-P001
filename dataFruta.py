@@ -103,6 +103,9 @@ class AnaliseDados(ABC):
     @abstractmethod
     def mostraMaior(self):
         pass
+    @abstractmethod
+    def listarEmOrdem(self):
+        pass
 
 class ListaNomes(AnaliseDados):
     def __init__(self):
@@ -119,6 +122,10 @@ class ListaNomes(AnaliseDados):
 
     def mostraMaior(self):
         print(f"Maior: {max(self._AnaliseDados__lista)}")
+    
+    def listarEmOrdem(self):
+        sorted_lista = sorted(self._AnaliseDados__lista)
+        print("Lista em ordem:", sorted_lista)
 
 class ListaDatas(AnaliseDados):
     def __init__(self):
@@ -132,13 +139,16 @@ class ListaDatas(AnaliseDados):
             ano = int(input("Ano: "))
             data = Data(dia, mes, ano)
             self._AnaliseDados__lista.append(data)
-    def mostraMediana(self):
-        
+
     def mostraMenor(self):
         print(f"Menor: {min(self._AnaliseDados__lista)}")
 
     def mostraMaior(self):
         print(f"Maior: {max(self._AnaliseDados__lista)}")
+
+    def listarEmOrdem(self):
+        sorted_lista = sorted(self._AnaliseDados__lista)
+        print("Lista em ordem:", sorted_lista)
 
 class ListaSalarios(AnaliseDados):
     def __init__(self):
@@ -156,6 +166,10 @@ class ListaSalarios(AnaliseDados):
     def mostraMaior(self):
         print(f"Maior: {max(self._AnaliseDados__lista)}")
 
+    def listarEmOrdem(self):
+        sorted_lista = sorted(self._AnaliseDados__lista)
+        print("Lista em ordem:", sorted_lista)
+
 class ListaIdades(AnaliseDados):
     def __init__(self):
         super().__init__(int)
@@ -172,6 +186,10 @@ class ListaIdades(AnaliseDados):
     def mostraMaior(self):
         print(f"Maior: {max(self._AnaliseDados__lista)}")
 
+    def listarEmOrdem(self):
+        sorted_lista = sorted(self._AnaliseDados__lista)
+        print("Lista em ordem:", sorted_lista)
+
 def main():
     nomes = ListaNomes()
     datas = ListaDatas()
@@ -185,6 +203,7 @@ def main():
         lista.mostraMediana()
         lista.mostraMenor()
         lista.mostraMaior()
+        lista.listarEmOrdem()
         print("___________________")
 
     print("Fim do teste!!!")
