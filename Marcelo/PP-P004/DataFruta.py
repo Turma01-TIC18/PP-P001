@@ -175,4 +175,35 @@ class ListaDatas(AnaliseDados):
         print("Datas Ajustadas:")
         for data in self._AnaliseDados__lista:
             print(f"Data: {data}")
+            
+class ListaSalarios(AnaliseDados):
+    def __init__(self):
+        super().__init__(float)
+
+    def entradaDeDados(self):
+        num_elementos = int(input("Quantos salários você deseja inserir? "))
+        for _ in range(num_elementos):
+            salario = float(input("Digite um salário: "))
+            self._AnaliseDados__lista.append(salario)
+
+    def mostraMenor(self):
+        print(f"Menor: {min(self._AnaliseDados__lista)}")
+
+    def mostraMaior(self):
+        print(f"Maior: {max(self._AnaliseDados__lista)}")
+    
+    def listarEmOrdem(self):
+        print("_____________________________________")
+        print("Lista em ordem crescente:")
+        for salario in sorted(self._AnaliseDados__lista):
+            print(salario)
+
+    def reajustarSalarios(self):
+        self._AnaliseDados__lista = list(map(lambda salario: salario * 1.1, self._AnaliseDados__lista))
+
+    def mostrarSalariosReajustados(self):
+        print("Salários Reajustados:")
+        for salario in self._AnaliseDados__lista:
+            print(f"Salário: {salario}")
+
 
