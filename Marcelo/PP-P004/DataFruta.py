@@ -136,3 +136,43 @@ class Data:
         print("Nomes e Salários:")
         for nome, salario in zip(self._AnaliseDados__lista, self.listaSalarios._AnaliseDados__lista):
             print(f"Nome: {nome}, Salário: {salario}")
+            
+class ListaDatas(AnaliseDados):
+    def __init__(self):
+        super().__init__(Data)
+
+    def entradaDeDados(self):
+        num_elementos = int(input("Quantas datas você deseja inserir? "))
+        for _ in range(num_elementos):
+            dia = int(input("Dia: "))
+            mes = int(input("Mês: "))
+            ano = int(input("Ano: "))
+            data = Data(dia, mes, ano)
+            self._AnaliseDados__lista.append(data)
+    
+
+    def mostraMenor(self):
+        print(f"Menor: {min(self._AnaliseDados__lista)}")
+
+    def mostraMaior(self):
+        print(f"Maior: {max(self._AnaliseDados__lista)}")    
+    
+    def listarEmOrdem(self):
+        print("_____________________________________")
+        print("Lista em ordem cronológica:")
+        for data in sorted(self._AnaliseDados__lista):
+            print(data)
+
+    def ajustarDatasAnteriores2019(self):
+        self._AnaliseDados__lista = list(
+            map(
+                lambda data: Data(1, data.mes, data.ano) if data.ano < 2019 else data,
+                self._AnaliseDados__lista
+            )
+        )
+
+    def mostrarDatasAjustadas(self):
+        print("Datas Ajustadas:")
+        for data in self._AnaliseDados__lista:
+            print(f"Data: {data}")
+
