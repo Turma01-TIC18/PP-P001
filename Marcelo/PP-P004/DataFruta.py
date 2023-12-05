@@ -107,3 +107,32 @@ class Data:
     @abstractmethod
     def mostraMaior(self):
         pass
+    
+    class ListaNomes(AnaliseDados):
+    def __init__(self, listaSalarios, tipoDeDado=str):
+        super().__init__(tipoDeDado)
+        self.listaSalarios = listaSalarios
+
+    def entradaDeDados(self):
+        num_elementos = int(input("Quantos nomes você deseja inserir? "))
+        for _ in range(num_elementos):
+            nome = input("Digite um nome: ")
+            self._AnaliseDados__lista.append(nome)
+    
+
+    def mostraMenor(self):
+        print(f"Menor: {min(self._AnaliseDados__lista)}")
+
+    def mostraMaior(self):
+        print(f"Maior: {max(self._AnaliseDados__lista)}")
+    
+    def listarEmOrdem(self):
+        print("_____________________________________")
+        print("Lista em ordem alfabética")
+        for nome in sorted(self._AnaliseDados__lista):
+            print(nome)    
+
+    def listarNomesSalarios(self):
+        print("Nomes e Salários:")
+        for nome, salario in zip(self._AnaliseDados__lista, self.listaSalarios._AnaliseDados__lista):
+            print(f"Nome: {nome}, Salário: {salario}")
