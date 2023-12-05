@@ -181,8 +181,10 @@ class ListaIdades(AnaliseDados):
 
 
 def menu():
+    print("\n\n")
+    print("DATAFRUTA\n")
     print("\nMenu de Opções:")
-    print("1. Incluir um nome na lista de nomes")
+    print("\n1. Incluir um nome na lista de nomes")
     print("2. Incluir um salário na lista de salários")
     print("3. Incluir uma data na lista de datas")
     print("4. Incluir uma idade na lista de idades")
@@ -200,7 +202,7 @@ def main():
 
     while True:
         menu()
-        opcao = int(input("Escolha uma opção (1-8): "))
+        opcao = int(input("\nEscolha uma opção (1-8): "))
 
         if opcao == 1:
             nomes.entrada_de_dados()
@@ -219,7 +221,7 @@ def main():
             datas.ajustar_datas_anteriores_2019()
             datas.mostrar_datas_ajustadas()
         elif opcao == 8:
-            print("Saindo do programa.")
+            print("Saindo do programa.\n")
             break
         else:
             print("Opção inválida. Escolha um número de 1 a 8.")
