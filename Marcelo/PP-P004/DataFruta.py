@@ -68,3 +68,42 @@ class Data:
             elif self.__mes == outraData.__mes:
                 return self.__dia > outraData.__dia
         return False
+    
+    class AnaliseDados(ABC):
+    @abstractmethod
+    def __init__(self, tipoDeDados):
+        self.__tipoDeDados = tipoDeDados
+        self.__lista = []
+
+    @abstractmethod
+    def entradaDeDados(self):
+        pass
+
+    @abstractmethod
+    def listarEmOrdem():
+        pass
+
+    def mostraMediana(self):
+        sorted_lista = sorted(self.__lista)
+        meio = len(sorted_lista) // 2
+
+        if len(sorted_lista) % 2 == 0:
+            
+            if self.__tipoDeDados in (Data, str):
+                
+                print(f"Mediana: {sorted_lista[meio - 1]}")
+            else:
+                
+                mediana = median(sorted_lista[meio - 1:meio + 1])
+                print(f"Mediana: {mediana}")
+        else:
+            
+            print(f"Mediana: {sorted_lista[meio]}")
+
+    @abstractmethod
+    def mostraMenor(self):
+        pass
+
+    @abstractmethod
+    def mostraMaior(self):
+        pass
