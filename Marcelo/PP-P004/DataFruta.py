@@ -228,3 +228,35 @@ class ListaIdades(AnaliseDados):
         for idade in sorted(self._AnaliseDados__lista):
             print(idade)
 
+def main():
+    salarios = ListaSalarios()
+    nomes = ListaNomes(salarios, tipoDeDado=str)
+    datas = ListaDatas()
+    idades = ListaIdades()
+
+    
+
+    listaListas = [nomes, datas, salarios, idades]
+
+    for lista in listaListas:
+        lista.entradaDeDados()
+        lista.mostraMediana()
+        lista.mostraMenor()
+        lista.mostraMaior()
+        lista.listarEmOrdem()
+        print("___________________")
+    nomes.listarNomesSalarios();
+    print("___________________")
+    datas.ajustarDatasAnteriores2019();
+    datas.mostrarDatasAjustadas();
+    print("___________________")
+    salarios.reajustarSalarios();
+    salarios.mostrarSalariosReajustados();
+
+
+
+    print("Fim do teste!!!")
+
+
+if __name__ == "__main__":
+    main()
