@@ -1,5 +1,6 @@
 from abc import ABC, abstractmethod
 from statistics import median
+from datetime import datetime
 class Data: 
     def __init__(self, dia = 1, mes = 1, ano = 2000):
         if dia < 1 or dia > 31:
@@ -83,22 +84,9 @@ class AnaliseDados(ABC):
     def entradaDeDados(self):
         pass
 
+    @abstractmethod
     def mostraMediana(self):
-        sorted_lista = sorted(self.__lista)
-        meio = len(sorted_lista) // 2
-
-        if len(sorted_lista) % 2 == 0:
-            # Quantidade par de elementos
-            if self.__tipoDeDados in (Data, str):
-                # Para Data ou String, escolhe o primeiro
-                print(f"Mediana: {sorted_lista[meio - 1]}")
-            else:
-                # Para float ou int, calcula a média
-                mediana = median(sorted_lista[meio - 1:meio + 1])
-                print(f"Mediana: {mediana}")
-        else:
-            # Quantidade ímpar de elementos
-            print(f"Mediana: {sorted_lista[meio]}")
+        pass
 
     @abstractmethod
     def mostraMenor(self):
@@ -120,8 +108,8 @@ class ListaNomes(AnaliseDados):
 
     def entradaDeDados(self):
         num_elementos = int(input("Quantos nomes você deseja inserir? "))
-        for _ in range(num_elementos):
-            nome = input("Digite um nome: ")
+        for i in range(num_elementos):
+            nome = input(f"Digite o elemento {i + 1} da lista de nomes: ")
             self._AnaliseDados__lista.append(nome)
 
     def mostraMenor(self):
@@ -136,6 +124,14 @@ class ListaNomes(AnaliseDados):
         
     def getLista(self):
         return self._AnaliseDados__lista
+    
+    def mostraMediana(self):
+        self._AnaliseDados__lista.sort()
+
+        if len(self._AnaliseDados__lista) % 2 == 0:
+            print("Mediana:", self._AnaliseDados__lista[len(self._AnaliseDados__lista) // 2 - 1])
+        else:
+            print("Mediana:", self._AnaliseDados__lista[len(self._AnaliseDados__lista) // 2])   
 
 class ListaDatas(AnaliseDados):
     def __init__(self):
@@ -143,24 +139,29 @@ class ListaDatas(AnaliseDados):
 
     def entradaDeDados(self):
         num_elementos = int(input("Quantas datas você deseja inserir? "))
-        for _ in range(num_elementos):
+        
+        for i in range(num_elementos):
              while True:
+                data_buffer = input(f"Digite o elemento {i + 1} da lista de datas no formato dd/mm/aaaa: ")
                 try:
-                    dia = int(input("Dia: "))
-                    mes = int(input("Mês: "))
-                    ano = int(input("Ano: "))
-                    data = Data(dia, mes, ano)
+                    data = datetime.strptime(data_buffer, "%d/%m/%Y").date()
                     self._AnaliseDados__lista.append(data)
-                    break  
-                except ValueError as e:
-                    print(f"Erro: {e}. Por favor, insira uma data válida.")
-
+                    break
+                except ValueError:
+                    print(f"Formato de data inválido: {data_buffer}")
     def mostraMenor(self):
         print(f"Menor: {min(self._AnaliseDados__lista)}")
 
     def mostraMaior(self):
         print(f"Maior: {max(self._AnaliseDados__lista)}")
 
+    def mostraMediana(self):
+        self._AnaliseDados__lista.sort()
+
+        if len(self._AnaliseDados__lista) % 2 == 0:
+            print("Mediana:", self._AnaliseDados__lista[len(self._AnaliseDados__lista) // 2 - 1])
+        else:
+            print("Mediana:", self._AnaliseDados__lista[len(self._AnaliseDados__lista) // 2]) 
     def listarEmOrdem(self):
         sorted_lista = sorted(self._AnaliseDados__lista)
         print("Lista em ordem: ")
@@ -168,18 +169,37 @@ class ListaDatas(AnaliseDados):
             print(data)
     def getLista(self):
         return self._AnaliseDados__lista
-    def modificarDatasAnteriores2019(self):
-        self._AnaliseDados__lista = list(map(lambda data: Data(1, data.mes, data.ano) if data.ano < 2019 else data, self._AnaliseDados__lista))
+    @classmethod
+    def retornaDataAntes2019(cls, data):
+        return data.year < 2019
 
+    def modificarDatasAnteriores2019(self):
+        datasAntes2019 = filter(self.retornaDataAntes2019, self._AnaliseDados__lista)
+        self._AnaliseDados__lista = list(map(lambda data: datetime(data.year, data.month, 1).date() if self.retornaDataAntes2019(data) else data, datasAntes2019))
 class ListaSalarios(AnaliseDados):
     def __init__(self):
         super().__init__(float)
 
     def entradaDeDados(self):
         num_elementos = int(input("Quantos salários você deseja inserir? "))
-        for _ in range(num_elementos):
-            salario = float(input("Digite um salário: "))
-            self._AnaliseDados__lista.append(salario)
+        for i in range(num_elementos):
+            while True:
+                try:
+                    salario = float(input(f"Digite o elemento {i + 1} da lista de salários: "))
+                    self._AnaliseDados__lista.append(salario)
+                    break
+                except ValueError:
+                    print("Erro: Por favor, insira um valor numérico válido.")
+
+    def mostraMediana(self):
+        self._AnaliseDados__lista.sort()
+
+        if len(self._AnaliseDados__lista) % 2 == 0:
+            valor1 = self._AnaliseDados__lista[len(self._AnaliseDados__lista) // 2 - 1]
+            valor2 = self._AnaliseDados__lista[len(self._AnaliseDados__lista) // 2]
+            print("Mediana:", (valor1 + valor2) / 2.0)
+        else:
+            print("Mediana:", self._AnaliseDados__lista[len(self._AnaliseDados__lista) // 2]) 
 
     def mostraMenor(self):
         print(f"Menor: {min(self._AnaliseDados__lista)}")
@@ -193,8 +213,13 @@ class ListaSalarios(AnaliseDados):
     def getLista(self):
         return self._AnaliseDados__lista
     
-    def reajustarSalarios(self, percentual):
-        self._AnaliseDados__lista = list(map(lambda salario: salario * (1 + percentual / 100), self._AnaliseDados__lista))
+    def reajustarSalarios(self):
+        if not self._AnaliseDados__lista:
+            print("Lista de salarios vazia")
+            return
+
+        self._AnaliseDados__lista  = map(lambda salario: salario * 1.10, self._AnaliseDados__lista)
+
 
     def calcularCustoFolha(self):
         return sum(self._AnaliseDados__lista)
@@ -205,8 +230,8 @@ class ListaIdades(AnaliseDados):
 
     def entradaDeDados(self):
         num_elementos = int(input("Quantas idades você deseja inserir? "))
-        for _ in range(num_elementos):
-            idade = int(input("Digite uma idade: "))
+        for i in range(num_elementos):
+            idade = input(f"Digite o elemento {i + 1} da lista de idades: ")
             self._AnaliseDados__lista.append(idade)
 
     def mostraMenor(self):
@@ -220,6 +245,16 @@ class ListaIdades(AnaliseDados):
         print("Lista em ordem:", sorted_lista)
     def getLista(self):
         return self._AnaliseDados__lista
+    def mostraMediana(self):
+        if not self._AnaliseDados__lista:
+            print("A lista está vazia.")
+            return
+        self._AnaliseDados__lista.sort()
+
+        if len(self._AnaliseDados__lista) % 2 == 0:
+            print("Mediana:", self._AnaliseDados__lista[len(self._AnaliseDados__lista) // 2 - 1])
+        else:
+            print("Mediana:", self._AnaliseDados__lista[len(self._AnaliseDados__lista) // 2])   
 
 def main():
     nomes = ListaNomes()
@@ -231,18 +266,23 @@ def main():
 
     for lista in listaListas:
         lista.entradaDeDados()
-        lista.mostraMediana()
-        lista.mostraMenor()
-        lista.mostraMaior()
-        lista.listarEmOrdem()
+          
+        if not lista.getLista():
+            print("Lista Vazia")
+        else:
+            lista.mostraMediana()
+            lista.mostraMenor()
+            lista.mostraMaior()
+            lista.listarEmOrdem()
         print("___________________")
     #(Iterador zip)
     nomeSalario = zip(nomes.getLista(), salarios.getLista())
     for nome, salario in nomeSalario:
         print(f"Nome: {nome}, Salário: {salario}")
-    # Reajuste de salários em 10%
-    salarios.reajustarSalarios(10)
     
+    # Reajuste de salários em 10%
+    salarios.reajustarSalarios()
+     
     # Cálculo do custo da folha de pagamento após reajuste
     print(f"Custo da folha de pagamento após reajuste: {salarios.calcularCustoFolha()}")
 
@@ -251,7 +291,5 @@ def main():
     datas.listarEmOrdem()
 
     print("Fim do teste!!!")
-
-
 if __name__ == "__main__":
     main()
