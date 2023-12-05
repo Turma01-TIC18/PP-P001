@@ -68,8 +68,9 @@ class Data:
             elif self.__mes == outraData.__mes:
                 return self.__dia > outraData.__dia
         return False
-    
-    class AnaliseDados(ABC):
+
+
+class AnaliseDados(ABC):
     @abstractmethod
     def __init__(self, tipoDeDados):
         self.__tipoDeDados = tipoDeDados
@@ -80,7 +81,7 @@ class Data:
         pass
 
     @abstractmethod
-    def listarEmOrdem():
+    def listarEmOrdem(self):
         pass
 
     def mostraMediana(self):
@@ -88,16 +89,12 @@ class Data:
         meio = len(sorted_lista) // 2
 
         if len(sorted_lista) % 2 == 0:
-            
             if self.__tipoDeDados in (Data, str):
-                
                 print(f"Mediana: {sorted_lista[meio - 1]}")
             else:
-                
                 mediana = median(sorted_lista[meio - 1:meio + 1])
                 print(f"Mediana: {mediana}")
         else:
-            
             print(f"Mediana: {sorted_lista[meio]}")
 
     @abstractmethod
@@ -107,8 +104,9 @@ class Data:
     @abstractmethod
     def mostraMaior(self):
         pass
-    
-    class ListaNomes(AnaliseDados):
+
+
+class ListaNomes(AnaliseDados):
     def __init__(self, listaSalarios, tipoDeDado=str):
         super().__init__(tipoDeDado)
         self.listaSalarios = listaSalarios
@@ -118,25 +116,25 @@ class Data:
         for _ in range(num_elementos):
             nome = input("Digite um nome: ")
             self._AnaliseDados__lista.append(nome)
-    
 
     def mostraMenor(self):
         print(f"Menor: {min(self._AnaliseDados__lista)}")
 
     def mostraMaior(self):
         print(f"Maior: {max(self._AnaliseDados__lista)}")
-    
+
     def listarEmOrdem(self):
         print("_____________________________________")
         print("Lista em ordem alfabética")
         for nome in sorted(self._AnaliseDados__lista):
-            print(nome)    
+            print(nome)
 
     def listarNomesSalarios(self):
         print("Nomes e Salários:")
         for nome, salario in zip(self._AnaliseDados__lista, self.listaSalarios._AnaliseDados__lista):
             print(f"Nome: {nome}, Salário: {salario}")
-            
+
+
 class ListaDatas(AnaliseDados):
     def __init__(self):
         super().__init__(Data)
@@ -149,14 +147,13 @@ class ListaDatas(AnaliseDados):
             ano = int(input("Ano: "))
             data = Data(dia, mes, ano)
             self._AnaliseDados__lista.append(data)
-    
 
     def mostraMenor(self):
         print(f"Menor: {min(self._AnaliseDados__lista)}")
 
     def mostraMaior(self):
-        print(f"Maior: {max(self._AnaliseDados__lista)}")    
-    
+        print(f"Maior: {max(self._AnaliseDados__lista)}")
+
     def listarEmOrdem(self):
         print("_____________________________________")
         print("Lista em ordem cronológica:")
@@ -175,7 +172,8 @@ class ListaDatas(AnaliseDados):
         print("Datas Ajustadas:")
         for data in self._AnaliseDados__lista:
             print(f"Data: {data}")
-            
+
+
 class ListaSalarios(AnaliseDados):
     def __init__(self):
         super().__init__(float)
@@ -191,7 +189,7 @@ class ListaSalarios(AnaliseDados):
 
     def mostraMaior(self):
         print(f"Maior: {max(self._AnaliseDados__lista)}")
-    
+
     def listarEmOrdem(self):
         print("_____________________________________")
         print("Lista em ordem crescente:")
@@ -206,6 +204,7 @@ class ListaSalarios(AnaliseDados):
         for salario in self._AnaliseDados__lista:
             print(f"Salário: {salario}")
 
+
 class ListaIdades(AnaliseDados):
     def __init__(self):
         super().__init__(int)
@@ -215,7 +214,7 @@ class ListaIdades(AnaliseDados):
         for _ in range(num_elementos):
             idade = int(input("Digite uma idade: "))
             self._AnaliseDados__lista.append(idade)
-        
+
     def mostraMenor(self):
         print(f"Menor: {min(self._AnaliseDados__lista)}")
 
@@ -228,13 +227,12 @@ class ListaIdades(AnaliseDados):
         for idade in sorted(self._AnaliseDados__lista):
             print(idade)
 
+
 def main():
     salarios = ListaSalarios()
     nomes = ListaNomes(salarios, tipoDeDado=str)
     datas = ListaDatas()
     idades = ListaIdades()
-
-    
 
     listaListas = [nomes, datas, salarios, idades]
 
@@ -245,18 +243,17 @@ def main():
         lista.mostraMaior()
         lista.listarEmOrdem()
         print("___________________")
-    nomes.listarNomesSalarios();
+    nomes.listarNomesSalarios()
     print("___________________")
-    datas.ajustarDatasAnteriores2019();
-    datas.mostrarDatasAjustadas();
+    datas.ajustarDatasAnteriores2019()
+    datas.mostrarDatasAjustadas()
     print("___________________")
-    salarios.reajustarSalarios();
-    salarios.mostrarSalariosReajustados();
-
-
+    salarios.reajustarSalarios()
+    salarios.mostrarSalariosReajustados()
 
     print("Fim do teste!!!")
 
 
 if __name__ == "__main__":
     main()
+
