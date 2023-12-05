@@ -303,13 +303,13 @@ def main():
         opcao = input("Escolha uma opção: ")
 
         if opcao == "1":
-            nomes.incluirUmElemento()
+            pass
         elif opcao == "2":
-            salarios.incluirUmElemento()
+            pass
         elif opcao == "3":
-            datas.incluirUmElemento()
+            pass
         elif opcao == "4":
-            idades.incluirUmElemento()
+            pass
         elif opcao == "5":
             nomeSalario = zip(nomes.getLista(), salarios.getLista())
             for nome, salario in nomeSalario:
