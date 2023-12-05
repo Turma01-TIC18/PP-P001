@@ -206,4 +206,25 @@ class ListaSalarios(AnaliseDados):
         for salario in self._AnaliseDados__lista:
             print(f"Salário: {salario}")
 
+class ListaIdades(AnaliseDados):
+    def __init__(self):
+        super().__init__(int)
+
+    def entradaDeDados(self):
+        num_elementos = int(input("Quantas idades você deseja inserir? "))
+        for _ in range(num_elementos):
+            idade = int(input("Digite uma idade: "))
+            self._AnaliseDados__lista.append(idade)
+        
+    def mostraMenor(self):
+        print(f"Menor: {min(self._AnaliseDados__lista)}")
+
+    def mostraMaior(self):
+        print(f"Maior: {max(self._AnaliseDados__lista)}")
+
+    def listarEmOrdem(self):
+        print("_____________________________________")
+        print("Lista em ordem crescente:")
+        for idade in sorted(self._AnaliseDados__lista):
+            print(idade)
 
