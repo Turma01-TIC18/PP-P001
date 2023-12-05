@@ -1,0 +1,18 @@
+[
+  {
+    "nome": "Jo\u00e3o",
+    "sobrenome": "Silva",
+    "ano_nascimento": 1990,
+    "RG": "1234567",
+    "ano_admissao": 2015,
+    "salario": 80525.50000000004
+  },
+  {
+    "nome": "Maria",
+    "sobrenome": "Santos",
+    "ano_nascimento": 1985,
+    "RG": "9876543",
+    "ano_admissao": 2018,
+    "salario": 96630.6
+  }
+]

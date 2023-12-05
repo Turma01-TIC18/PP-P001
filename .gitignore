@@ -2,7 +2,10 @@
 __pycache__/
 *.py[cod]
 *$py.class
-
+Franklin/
+Semana2/
+Semana3/
+Semana4/
 # C extensions
 *.so
 
