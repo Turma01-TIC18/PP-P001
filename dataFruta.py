@@ -101,11 +101,16 @@ class AnaliseDados(ABC):
     @abstractmethod
     def getLista(self):
         pass
+    @abstractmethod
+    def incluirUmElemento(self):
+        pass
 
 class ListaNomes(AnaliseDados):
     def __init__(self):
         super().__init__(str)
 
+    def incluirUmElemento(self):
+        pass #implementar colocar um elemento na lista de nomes
     def entradaDeDados(self):
         num_elementos = int(input("Quantos nomes você deseja inserir? "))
         for i in range(num_elementos):
@@ -137,6 +142,8 @@ class ListaDatas(AnaliseDados):
     def __init__(self):
         super().__init__(Data)
 
+    def incluirUmElemento(self):
+        pass #implementar colocar um elemento na lista de data
     def entradaDeDados(self):
         num_elementos = int(input("Quantas datas você deseja inserir? "))
         
@@ -169,12 +176,21 @@ class ListaDatas(AnaliseDados):
             print(data)
     def getLista(self):
         return self._AnaliseDados__lista
+    @classmethod
+    def retornaDataAntes2019(cls, data):
+        return data.year < 2019
+
     def modificarDatasAnteriores2019(self):
-        self._AnaliseDados__lista = list(map(lambda data: Data(1, data.mes, data.ano) if data.ano < 2019 else data, self._AnaliseDados__lista))
+        datasAntes2019 = filter(self.retornaDataAntes2019, self._AnaliseDados__lista)
+        self._AnaliseDados__lista = list(map(lambda data: datetime(data.year, data.month, 1).date() if self.retornaDataAntes2019(data) else data, datasAntes2019))
 
 class ListaSalarios(AnaliseDados):
     def __init__(self):
         super().__init__(float)
+
+
+    def incluirUmElemento(self):
+        pass #implementar colocar um elemento na lista de salario
 
     def entradaDeDados(self):
         num_elementos = int(input("Quantos salários você deseja inserir? "))
@@ -223,6 +239,8 @@ class ListaSalarios(AnaliseDados):
 class ListaIdades(AnaliseDados):
     def __init__(self):
         super().__init__(int)
+    def incluirUmElemento(self):
+        pass #implementar colocar um elemento na lista de idades
 
     def entradaDeDados(self):
         num_elementos = int(input("Quantas idades você deseja inserir? "))
@@ -260,17 +278,17 @@ def main():
 
     listaListas = [nomes, datas, salarios, idades]
 
-    for lista in listaListas:
-        lista.entradaDeDados()
+    # for lista in listaListas:
+    #     lista.entradaDeDados()
         
-        if not lista.getLista():
-            print("Lista Vazia")
-        else:
-            lista.mostraMediana()
-            lista.mostraMenor()
-            lista.mostraMaior()
-            lista.listarEmOrdem()
-        print("___________________")
+    #     if not lista.getLista():
+    #         print("Lista Vazia")
+    #     else:
+    #         lista.mostraMediana()
+    #         lista.mostraMenor()
+    #         lista.mostraMaior()
+    #         lista.listarEmOrdem()
+    #     print("___________________")
 
     while True:
         print("1. Incluir um nome na lista de nomes")
@@ -285,13 +303,13 @@ def main():
         opcao = input("Escolha uma opção: ")
 
         if opcao == "1":
-            nomes.entradaDeDados()
+            nomes.incluirUmElemento()
         elif opcao == "2":
-            pass
+            salarios.incluirUmElemento()
         elif opcao == "3":
-            pass
+            datas.incluirUmElemento()
         elif opcao == "4":
-            pass
+            idades.incluirUmElemento()
         elif opcao == "5":
             nomeSalario = zip(nomes.getLista(), salarios.getLista())
             for nome, salario in nomeSalario:
