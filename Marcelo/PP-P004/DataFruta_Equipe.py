@@ -182,7 +182,7 @@ class ListaIdades(AnaliseDados):
 
 def menu():
     print("\n\n")
-    print("DATAFRUTA\n")
+    print("DATAFRUTA")
     print("\nMenu de Opções:")
     print("\n1. Incluir um nome na lista de nomes")
     print("2. Incluir um salário na lista de salários")
