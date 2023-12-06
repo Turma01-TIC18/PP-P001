@@ -4,5 +4,5 @@
     • Franklin Pereira
     • Lucas Silva
     • Marcelo Cruz
-    • Lorena
+    • Lorena Andrade
     
