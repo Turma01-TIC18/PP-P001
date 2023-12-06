@@ -101,6 +101,11 @@ class AnaliseDados(ABC):
     @abstractmethod
     def listarEmOrdem(self):
         pass
+    
+    @abstractmethod
+    def getLista(self):
+        pass
+
 
 class ListaNomes(AnaliseDados):
     
@@ -124,7 +129,7 @@ class ListaNomes(AnaliseDados):
         if len(self.__lista) % 2 == 0:
             print("Mediana:", self.__lista[len(self.__lista) // 2 - 1])
         else:
-            print("Mediana:", self.__lista[len(self.__ista) // 2])   
+            print("Mediana:", self.__lista[len(self.__lista) // 2])   
 
     def mostraMenor(self):
         if self.__lista:
@@ -149,13 +154,8 @@ class ListaNomes(AnaliseDados):
     def __str__(self):
         return str(self.__lista)
     
-    def mostrarDados(self):
-        if not self.__lista:
-            print("A lista está vazia.")
-            return
-        
-        for nome, salario in zip(self.__lista, ListaSalarios().__lista):
-            print(f"Nome: {nome}, Salário: {salario}")
+    def getLista(self):
+        return self.__lista 
 	
 class ListaDatas(AnaliseDados):
         
@@ -228,6 +228,9 @@ class ListaDatas(AnaliseDados):
         print("Datas alteradas (dias modificados para o primeiro dia do mês):")
         for data in self.__lista:
             print(data)
+            
+    def getLista(self):
+        return self.__lista
 
 class ListaSalarios(AnaliseDados):
 
@@ -288,6 +291,9 @@ class ListaSalarios(AnaliseDados):
         print("Salários reajustados em 10%:")
         for salario in salarios_reajustados:
             print(salario)
+            
+    def getLista(self):
+        return self.__lista
 
 class ListaIdades(AnaliseDados):
     
@@ -337,6 +343,9 @@ class ListaIdades(AnaliseDados):
 
     def __str__(self):
         return str(self.__lista)
+    
+    def getLista(self):
+        return self.__lista
 
 def main():
     nomes = ListaNomes()
@@ -351,11 +360,16 @@ def main():
         lista.mostraMediana()
         lista.mostraMenor()
         lista.mostraMaior()
-        print("Lista em Ordem:", lista.listarEmOrdem())
+        lista.listarEmOrdem()
         print("___________________")
+    
+    print("Mostrar nomes com salários:")
+    if not nomes.getLista():
+        print("A lista está vazia.")
+        return
         
-        print("Mostrar nomes com salários:")
-        nomes.mostrarDados()
+    for nome, salario in zip(nomes.getLista(), salarios.getLista()):
+        print(f"Nome: {nome}, Salário: {salario}")
 
     
         print("\nCusto da folha de pagamento com reajuste de 10%:")
