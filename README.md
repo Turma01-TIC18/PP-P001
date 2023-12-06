@@ -1,5 +1,5 @@
-# PP-P001
-    • Repósitório da Atividade de Programação Imperativa - PP-P001
+# PP-P004
+    • Repósitório da Atividade do Módulo de Python - PP-P004
       
     • Franklin Pereira
     • Lucas Silva
